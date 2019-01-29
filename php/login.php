@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,13 +15,13 @@
 </head>
 <body>
 <div id="login">
-    <h3 class="text-center text-white pt-5">GESTION DE AULAS</h3>
+    <h1 class="text-center text-white pt-5">GESTION DE AULAS</h1>
     <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
                     <form id="login-form" class="form" action="" method="post">
-                        <h1 class="text-center text-info">Inicio Sesión</h1>
+                        <h3 class="text-center text-info">Inicio Sesión</h3>
                         <div class="form-group">
                             <label for="username" class="text-info">Usuario:</label><br>
                             <input type="text" name="username" id="username" class="form-control">
