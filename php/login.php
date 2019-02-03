@@ -1,4 +1,5 @@
 <?php
+include_once("Application.php");
 session_start();
 ?>
 <!DOCTYPE html>
@@ -20,27 +21,62 @@ session_start();
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
-                    <form id="login-form" class="form" action="" method="post">
+                    <form id="login-form" class="form" action="#" method="post">
                         <h3 class="text-center text-info">Inicio Sesión</h3>
                         <div class="form-group">
                             <label for="username" class="text-info">Usuario:</label><br>
-                            <input type="text" name="username" id="username" class="form-control">
+                            <input type="text" name="username" id="username" autofocus="autofocus" required="required" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-info">Contraseña:</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" autofocus="autofocus" required="required" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="remember-me" class="text-info"><span>Recuérdame</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Iniciar Sesión">
+                            <input type="submit" name="submit" class="btn btn-dark" value="Iniciar Sesión">
                         </div>
                         <div id="register-link" class="text-right">
-                            <a href="#" class="text-info">Registrarse</a>
+                            <br/>
+                            <a href="#" class="btn text-info">Registrarse</a>
                         </div>
                     </form>
                 </div>
             </div>
+
         </div>
+        <br/>
+        <?php
+        $app = new Application();
+        if($app->estaLogeado()){
+            echo "<script language=\"javascript\">window.location.href=\"#\"</script>";
+        }else{
+            if($_SERVER["REQUEST_METHOD"] == "POST"){
+                $user = $_POST["username"];
+                $pass = $_POST["password"];
+                if (empty($user)){
+                    echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Debes introducir un nombre de usuario</p>
+                              </div>";
+                }elseif (empty($pass)){
+                    echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Debes introducir una contraseña</p>
+                              </div>";
+                }else{
+                    if (!$app->getDao()->estaConectado()){
+                        echo "<div class=\"alert alert-danger\" role=\"alert\">
+                                    <p>".$app->getDao()->getError()."</p>
+                                  </div>";
+                    }elseif ($app->getDao()->validarUsuario($user,$pass)){
+                        $app->guardarSesion($user);
+                        echo "<script language=\"javascript\">window.location.href=\"#\"</script>";
+                    }else{
+                        echo "<div class=\"alert alert-danger\" role=\"alert\">
+                                    <p>El nombre usuario o la contraseña es incorrecta</p>
+                                  </div>";
+                    }
+                }
+            }
+        }
+        ?>
     </div>
 </div>
 </body>
