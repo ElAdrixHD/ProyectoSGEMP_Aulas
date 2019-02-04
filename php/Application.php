@@ -15,7 +15,7 @@ class Application
     }
 
     public function guardarSesion($user){
-        $_SESSION['user'] = $user;
+        $_SESSION['username'] = $user;
     }
 
     public function validarSesion(){
@@ -29,14 +29,14 @@ class Application
     {
         session_start();
         if($this->estaLogeado()){
-            unset($_SESSION['user']);
+            unset($_SESSION['username']);
             session_destroy();
         }
         $this->mostrarLogin();
     }
 
     public function estaLogeado(){
-        return isset($_SESSION['user']);
+        return isset($_SESSION['username']);
     }
 
     private function mostrarLogin(){

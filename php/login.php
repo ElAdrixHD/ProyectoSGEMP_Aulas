@@ -20,18 +20,18 @@ session_start();
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
-                    <form id="login-form" class="form" action="#" method="post">
+                    <form id="login-form" action="login.php" class="form" method="post">
                         <h3 class="text-center text-black">Inicio Sesión</h3>
                         <div class="form-group">
                             <label for="username" class="text-black">Usuario:</label><br>
-                            <input type="text" name="username" id="username" autofocus="autofocus" required="required" class="form-control">
+                            <input type="text" name="username" autofocus="autofocus" required="required" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-black">Contraseña:</label><br>
-                            <input type="password" name="password" id="password" autofocus="autofocus" required="required" class="form-control">
+                            <input type="password" name="password" autofocus="autofocus" required="required" class="form-control">
                         </div>
                         <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-dark" value="Iniciar Sesión">
+                            <input type="submit" class="btn btn-dark" value="Iniciar Sesión">
                         </div>
                         <div id="register-link" class="text-right form-group">
                             <br/>
@@ -46,7 +46,7 @@ session_start();
         <?php
         $app = new Application();
         if($app->estaLogeado()){
-            echo "<script language=\"javascript\">window.location.href=\"#\"</script>";
+            echo "<script language=\"javascript\">window.location.href=\"panel.php\"</script>";
         }else{
             if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $user = $_POST["username"];
@@ -66,7 +66,7 @@ session_start();
                                   </div>";
                     }elseif ($app->getDao()->validarUsuario($user,$pass)){
                         $app->guardarSesion($user);
-                        echo "<script language=\"javascript\">window.location.href=\"#\"</script>";
+                        echo "<script language=\"javascript\">window.location.href=\"panel.php\"</script>";
                     }else{
                         echo "<div class=\"alert alert-danger\" role=\"alert\">
                                     <p>El nombre usuario o la contraseña es incorrecta</p>

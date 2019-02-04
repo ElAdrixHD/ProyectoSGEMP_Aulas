@@ -109,7 +109,7 @@ $app = new Application();
                         echo "<div class=\"alert alert-success\" role=\"alert\">
                                     <p>Se ha registrado satisfactoriamente</p>
                                   </div>";
-                        echo "<script language=\"javascript\">setTimeout(function(){window.location.href=\"login.php\"},3000)</script>";
+                        echo "<script language=\"javascript\">setTimeout(function(){window.location.href=\"login.php\"},2000)</script>";
                     }else{
                         echo "<div class=\"alert alert-danger\" role=\"alert\">
                                     <p>".$app->getDao()->getError()."</p>
