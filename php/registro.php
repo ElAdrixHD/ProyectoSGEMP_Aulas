@@ -21,7 +21,7 @@ $app = new Application();
         <div id="register-row" class="row justify-content-center align-items-center">
             <div id="register-column" class="col-md-6">
                 <div id="register-box" class="col-md-12">
-                    <form id="register-form" class="form" method="post">
+                    <form id="register-form" class="form" action="registro.php" method="post">
                         <h3 class="text-center text-black">Registro</h3>
                         <div class="form-group">
                             <label for="username" class="text-black">Nombre de usuario:</label><br>
@@ -107,7 +107,7 @@ $app = new Application();
                                   </div>";
                     }elseif($app->getDao()->registrarUsuario($user,$pass,$correo,$fnac,$nombre,$apellidos)){
                         echo "<div class=\"alert alert-success\" role=\"alert\">
-                                    <p>Se ha registrado satisfactoriamente</p>
+                                    <p>Se ha registrado satisfactoriamente. Se le redireccionará automaticamente para que pueda iniciar sesión.</p>
                                   </div>";
                         echo "<script language=\"javascript\">setTimeout(function(){window.location.href=\"login.php\"},2000)</script>";
                     }else{
