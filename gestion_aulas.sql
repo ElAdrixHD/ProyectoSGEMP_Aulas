@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-02-2019 a las 20:00:51
+-- Tiempo de generación: 04-02-2019 a las 20:58:37
 -- Versión del servidor: 10.3.12-MariaDB
 -- Versión de PHP: 7.3.1
 
@@ -62,7 +62,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`nombre_usuario`, `contrasenia`, `apellidos`, `nombre`, `fecha_nacimiento`, `email`) VALUES
-('adrisan', '7118c8baebed52f7dfc224f8803c5713d5d7a5ea', 'Muñoz Mudarra', 'Adrián', '1997-12-27', 'eladrixhd@gmail.com');
+('adrisan', '7118c8baebed52f7dfc224f8803c5713d5d7a5ea', 'Muñoz Mudarra', 'Adrián', '1997-12-27', 'eladrixhd@gmail.com'),
+('ElAdrixHD', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Muñoz Mudarrita', 'Adrian', '1980-02-06', 'adrianmmudarra@gmail.com');
 
 --
 -- Índices para tablas volcadas
@@ -78,7 +79,8 @@ ALTER TABLE `aula`
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`nombre_usuario`);
+  ADD PRIMARY KEY (`nombre_usuario`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
