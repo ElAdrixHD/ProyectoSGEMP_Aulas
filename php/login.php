@@ -16,27 +16,27 @@ session_start();
 </head>
 <body>
 <div id="login">
-    <h1 class="text-center text-white pt-5">GESTION DE AULAS</h1>
+    <h1 class="text-center text-black pt-5">GESTIÓN DE AULAS</h1>
     <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
                     <form id="login-form" class="form" action="#" method="post">
-                        <h3 class="text-center text-info">Inicio Sesión</h3>
+                        <h3 class="text-center text-black">Inicio Sesión</h3>
                         <div class="form-group">
-                            <label for="username" class="text-info">Usuario:</label><br>
+                            <label for="username" class="text-black">Usuario:</label><br>
                             <input type="text" name="username" id="username" autofocus="autofocus" required="required" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="password" class="text-info">Contraseña:</label><br>
+                            <label for="password" class="text-black">Contraseña:</label><br>
                             <input type="password" name="password" id="password" autofocus="autofocus" required="required" class="form-control">
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-dark" value="Iniciar Sesión">
                         </div>
-                        <div id="register-link" class="text-right">
+                        <div id="register-link" class="text-right form-group">
                             <br/>
-                            <a href="#" class="btn text-info">Registrarse</a>
+                            <a href="#" class="btn btn-outline-dark">Registrarse</a>
                         </div>
                     </form>
                 </div>

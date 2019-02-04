@@ -1,15 +1,20 @@
 body {
     margin: 0;
     padding: 0;
+    background-image: url("../img/tic_login.jpg");
     background-color: #2d2a61;
     height: 100vh;
+}
+
+a{
+    margin: 5px;
 }
 #login .container #login-row #login-column #login-box {
     margin-top: 120px;
     max-width: 600px;
     height: 320px;
-    border: 1px solid #9C9C9C;
-    background-color: #EAEAEA;
+    border: 1px solid rgb(156, 156, 156);
+    background-color: rgba(234, 234, 234, 0.32);
 }
 #login .container #login-row #login-column #login-box #login-form {
     padding: 5px;
