@@ -1,6 +1,7 @@
 <?php
 include_once("Application.php");
 session_start();
+$app = new Application();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -15,13 +16,12 @@ session_start();
     <script type='text/javascript' src='../js/bootstrap.js'></script>
 </head>
 <body  class="mybackground">
-<div id="login">
-    <h1 class="text-center text-black pt-5">GESTIÓN DE AULAS</h1>
+<div id="register">
     <div class="container">
-        <div id="login-row" class="row justify-content-center align-items-center">
-            <div id="login-column" class="col-md-6">
-                <div id="login-box" class="col-md-12">
-                    <form id="login-form" class="form" action="#" method="post">
+        <div id="register-row" class="row justify-content-center align-items-center">
+            <div id="register-column" class="col-md-6">
+                <div id="register-box" class="col-md-12">
+                    <form id="register-form" class="form" method="post">
                         <h3 class="text-center text-black">Registro</h3>
                         <div class="form-group">
                             <label for="username" class="text-black">Nombre de usuario:</label><br>
@@ -85,7 +85,7 @@ session_start();
                               </div>";
                 }elseif ($pass != $passwordconfirmar){
                     echo "<div class=\"alert alert-warning\" role=\"alert\">
-                                <p>Las contraseñas son son iguales</p>
+                                <p>Las contraseñas no son iguales</p>
                               </div>";
                 }
                 elseif (strftime("%Y", strtotime($fnac)) >= 2001 || strftime("%Y", strtotime($fnac)) <= 1930){
@@ -97,12 +97,22 @@ session_start();
                         echo "<div class=\"alert alert-danger\" role=\"alert\">
                                     <p>".$app->getDao()->getError()."</p>
                                   </div>";
-                    }elseif ($app->getDao()->validarUsuario($user,$pass)){
-                        $app->guardarSesion($user);
-                        echo "<script language=\"javascript\">window.location.href=\"#\"</script>";
+                    }elseif ($app->getDao()->comprobarUsuario($user)){
+                        echo "<div class=\"alert alert-danger\" role=\"alert\">
+                                    <p>Ya existe ese usuario</p>
+                                  </div>";
+                    }elseif ($app->getDao()->comprobarCorreo($correo)){
+                        echo "<div class=\"alert alert-danger\" role=\"alert\">
+                                    <p>Ya existe ese correo electronico</p>
+                                  </div>";
+                    }elseif($app->getDao()->registrarUsuario($user,$pass,$correo,$fnac,$nombre,$apellidos)){
+                        echo "<div class=\"alert alert-success\" role=\"alert\">
+                                    <p>Se ha registrado satisfactoriamente</p>
+                                  </div>";
+                        echo "<script language=\"javascript\">setTimeout(function(){window.location.href=\"login.php\"},3000)</script>";
                     }else{
                         echo "<div class=\"alert alert-danger\" role=\"alert\">
-                                    <p>El nombre usuario o la contraseña es incorrecta</p>
+                                    <p>".$app->getDao()->getError()."</p>
                                   </div>";
                     }
                 }

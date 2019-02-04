@@ -59,4 +59,15 @@ class DataObjectAccess
             return false;
         }
     }
+
+    public function registrarUsuario($user, $pass, $correo, $fnac, $nombre, $apellidos)
+    {
+        $sql = "INSERT INTO ".TABLA_USUARIO." (nombre_usuario, contrasenia, apellidos, nombre, fecha_nacimiento, email) VALUES ('".$user."',sha1('".$pass."'),'".$apellidos."','".$nombre."','".$fnac."','".$correo."')";
+        if ($this->conexion->exec($sql) === false){
+            $this->error = "Imposible registrar usuario";
+            return false;
+        }else{
+            return true;
+        }
+    }
 }
