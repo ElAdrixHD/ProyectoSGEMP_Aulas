@@ -9,12 +9,12 @@ body {
 }
 
 a{
-    margin-top: 8px;
+    margin-top: -98px;
 }
 #login .container #login-row #login-column #login-box {
     margin-top: 120px;
-    max-width: 600px;
-    height: 290px;
+    max-width: 500px;
+    height: 620px;
     border: 1px solid rgb(156, 156, 156);
     background-color: rgba(255, 255, 255, 0.6);
 }

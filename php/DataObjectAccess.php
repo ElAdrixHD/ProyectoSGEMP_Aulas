@@ -6,6 +6,7 @@ define("PASSWORD", "123");
 define("TABLA_USUARIO", "usuario");
 define("COLUMNA_USUARIO", "nombre_usuario");
 define("COLUMNA_CONTRASENIA", "contrasenia");
+define("COLUMNA_CORREO","email");
 class DataObjectAccess
 {
     private $conexion;
@@ -31,6 +32,26 @@ class DataObjectAccess
     public function validarUsuario($user, $pass)
     {
         $sql = "SELECT nombre_usuario FROM ".TABLA_USUARIO." WHERE ".COLUMNA_USUARIO." = '".$user."' AND ".COLUMNA_CONTRASENIA." = sha1('".$pass."')";
+        $consulta = $this->conexion->query($sql);
+        if ($consulta->rowCount() == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function comprobarUsuario($user){
+        $sql = "SELECT nombre_usuario FROM ".TABLA_USUARIO." WHERE ".COLUMNA_USUARIO." = '".$user."'";
+        $consulta = $this->conexion->query($sql);
+        if ($consulta->rowCount() == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function comprobarCorreo($correo){
+        $sql = "SELECT nombre_usuario FROM ".TABLA_USUARIO." WHERE ".COLUMNA_CORREO." = '".$correo."'";
         $consulta = $this->conexion->query($sql);
         if ($consulta->rowCount() == 1){
             return true;

@@ -14,14 +14,14 @@ session_start();
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
     <script type='text/javascript' src='../js/bootstrap.js'></script>
 </head>
-<body>
+<body  class="mybackground">
 <div id="login">
     <h1 class="text-center text-black pt-5">GESTIÓN DE AULAS</h1>
     <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
-                    <form id="login-form" class="form" action="#" method="post">
+                    <form id="login-form" class="form" action="registro.php" method="post">
                         <h3 class="text-center text-black">Inicio Sesión</h3>
                         <div class="form-group">
                             <label for="username" class="text-black">Usuario:</label><br>
@@ -36,7 +36,7 @@ session_start();
                         </div>
                         <div id="register-link" class="text-right form-group">
                             <br/>
-                            <a href="#" class="btn btn-outline-dark">Registrarse</a>
+                            <a href="registro.php" class="btn btn-outline-dark">Registrarse</a>
                         </div>
                     </form>
                 </div>
