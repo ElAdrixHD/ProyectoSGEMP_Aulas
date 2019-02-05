@@ -1,19 +1,13 @@
 <?php
 include_once("Application.php");
 session_start();
+$app = new Application();
 ?>
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <title>Iniciar Sesión</title>
-    <meta charset=\"UTF-8\">
-    <meta name="title" content="Iniciar Sesión">
-    <meta name="description" content="Iniciar Sesión">
-    <link rel="stylesheet" href="../css/bootstrap.css"/>
-    <link rel="stylesheet" href="../css/login.css"/>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-    <script type='text/javascript' src='../js/bootstrap.js'></script>
-</head>
+<?php
+Application::PonerHead("Inicio Sesion", "../css/login.css")
+?>
 <body  class="mybackground">
 <div id="login">
     <div class="container">
@@ -24,11 +18,11 @@ session_start();
                         <h3 class="text-center text-black">Inicio Sesión</h3>
                         <div class="form-group">
                             <label for="username" class="text-black">Usuario:</label><br>
-                            <input type="text" name="username" autofocus="autofocus" required="required" class="form-control">
+                            <input type="text" name="username" autofocus="autofocus" required="required" placeholder="Usuario" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-black">Contraseña:</label><br>
-                            <input type="password" name="password" autofocus="autofocus" required="required" class="form-control">
+                            <input type="password" name="password" autofocus="autofocus" required="required" placeholder="Contraseña" class="form-control">
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-dark" value="Iniciar Sesión">
@@ -40,11 +34,9 @@ session_start();
                     </form>
                 </div>
             </div>
-
         </div>
         <br/>
         <?php
-        $app = new Application();
         if($app->estaLogeado()){
             echo "<script language=\"javascript\">window.location.href=\"panel.php\"</script>";
         }else{
@@ -78,5 +70,11 @@ session_start();
         ?>
     </div>
 </div>
+<footer>
+    <br/>
+    <div class="footer-copyright text-center py-3">© 2019 Copyright:
+        <a href="https://adrianmmudarra.es"> Adrian Muñoz Mudarra</a>
+    </div>
+</footer>
 </body>
 </html>

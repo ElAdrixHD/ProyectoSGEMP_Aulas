@@ -5,16 +5,9 @@ $app = new Application();
 ?>
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <title>Iniciar Sesión</title>
-    <meta charset=\"UTF-8\">
-    <meta name="title" content="Registrarse">
-    <meta name="description" content="Registro">
-    <link rel="stylesheet" href="../css/bootstrap.css"/>
-    <link rel="stylesheet" href="../css/registro.css"/>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-    <script type='text/javascript' src='../js/bootstrap.js'></script>
-</head>
+<?php
+Application::PonerHead("Registro", "../css/registro.css")
+?>
 <body  class="mybackground">
 <div id="register">
     <div class="container">
@@ -109,7 +102,7 @@ $app = new Application();
                         echo "<div class=\"alert alert-success\" role=\"alert\">
                                     <p>Se ha registrado satisfactoriamente. Se le redireccionará automaticamente para que pueda iniciar sesión.</p>
                                   </div>";
-                        echo "<script language=\"javascript\">setTimeout(function(){window.location.href=\"login.php\"},2000)</script>";
+                        echo "<script language=\"javascript\">setTimeout(function(){window.location.href=\"login.php\"},2500)</script>";
                     }else{
                         echo "<div class=\"alert alert-danger\" role=\"alert\">
                                     <p>".$app->getDao()->getError()."</p>
@@ -120,5 +113,11 @@ $app = new Application();
         ?>
     </div>
 </div>
+<footer>
+    <br/>
+    <div class="footer-copyright text-center py-3">© 2019 Copyright:
+        <a href="https://adrianmmudarra.es"> Adrian Muñoz Mudarra</a>
+    </div>
+</footer>
 </body>
 </html>
