@@ -22,9 +22,54 @@ class Application
         $this->dao = new DataObjectAccess();
     }
 
-    public function getDao()
+    public static function PonerFooter()
     {
-        return $this->dao;
+        echo "<footer>
+    <br/>
+    <div class=\"footer-copyright text-center py-3\">© 2019 Copyright:
+        <a href=\"https://adrianmmudarra.es\"> Adrian Muñoz Mudarra</a>
+    </div>
+</footer>";
+    }
+
+    public static function PonerNav($user)
+    {
+        echo "<nav>
+<div class=\"nav-side-menu\">
+    <div class=\"brand\">Bienvenido, ".$user.".</div>
+    <i class=\"fa fa-bars fa-2x toggle-btn\" data-toggle=\"collapse\" data-target=\"#menu-content\"></i>
+
+    <div class=\"menu-list\">
+
+        <ul id=\"menu-content\" class=\"menu-content collapse out\">
+            <li  data-toggle=\"collapse\" data-target=\"#gestion\" class=\"collapsed active\">
+                <a href=\"#\"><i class=\"fa fa-arrow-up fa-lg\"></i>Gestion de aulas <span class=\"arrow\"></span></a>
+            </li>
+            <ul class=\"sub-menu collapse\" id=\"gestion\">
+                <li><a href=\"#\">Busquedas de aulas</a></li>
+                <li><a href=\"#\">Reservas de aulas</a></li>
+                <li><a href=\"#\">Consultar reservas de un aula</a></li>
+                <li><a href=\"#\">Alta de reservas</a></li>
+                <li><a href=\"#\">Gestión de reservas</a></li>
+            </ul>
+
+            <li data-toggle=\"collapse\" data-target=\"#perfil\" class=\"collapsed\">
+                <a href=\"#\"><i class=\"fa fa-user fa-lg\"></i>Perfil<span class=\"arrow\"></span></a>
+            </li>
+            <ul class=\"sub-menu collapse\" id=\"perfil\">
+                <li><a href=\"#\">Mis datos</a></li>
+                <li><a href=\"#\">Eliminar mi cuenta</a></li>
+            </ul>
+
+            <li>
+                <a href=\"desconectar.php\">
+                    <i class=\"fa fa-power-off fa-lg\"></i>Desconectar
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</nav>";
     }
 
     public function getUsuarioLogeado(){
@@ -58,5 +103,40 @@ class Application
 
     private function mostrarLogin(){
         header('Location: login.php');
+    }
+
+    public function getNombreReal($usuario)
+    {
+        return $this->dao->getNombreReal($usuario)->fetch()['nombre'];
+    }
+
+    public function registrarUsuario($user, $pass, $correo, $fnac, $nombre, $apellidos)
+    {
+        return $this->dao->registrarUsuario($user,$pass,$correo,$fnac,$nombre,$apellidos);
+    }
+
+    public function comprobarCorreo($correo)
+    {
+        return $this->dao->comprobarCorreo($correo);
+    }
+
+    public function comprobarUsuario($user)
+    {
+        return $this->dao->comprobarUsuario($user);
+    }
+
+    public function getError()
+    {
+        return $this->dao->getError();
+    }
+
+    public function estaConectado()
+    {
+        return $this->dao->estaConectado();
+    }
+
+    public function validarUsuario($user, $pass)
+    {
+        return $this->dao->validarUsuario($user,$pass);
     }
 }

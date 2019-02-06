@@ -70,4 +70,11 @@ class DataObjectAccess
             return true;
         }
     }
+
+    public function getNombreReal($usuario)
+    {
+        $sql = "SELECT nombre FROM ".TABLA_USUARIO." WHERE ".COLUMNA_USUARIO." = '".$usuario."'";
+        $consulta = $this->conexion->query($sql);
+        return $consulta;
+    }
 }

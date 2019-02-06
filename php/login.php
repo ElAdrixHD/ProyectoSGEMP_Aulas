@@ -52,11 +52,11 @@ Application::PonerHead("Inicio Sesion", "../css/login.css")
                                 <p>Debes introducir una contraseña</p>
                               </div>";
                 }else{
-                    if (!$app->getDao()->estaConectado()){
+                    if (!$app->estaConectado()){
                         echo "<div class=\"alert alert-danger\" role=\"alert\">
-                                    <p>".$app->getDao()->getError()."</p>
+                                    <p>".$app->getError()."</p>
                                   </div>";
-                    }elseif ($app->getDao()->validarUsuario($user,$pass)){
+                    }elseif ($app->validarUsuario($user,$pass)){
                         $app->guardarSesion($user);
                         echo "<script language=\"javascript\">window.location.href=\"panel.php\"</script>";
                     }else{
@@ -70,11 +70,8 @@ Application::PonerHead("Inicio Sesion", "../css/login.css")
         ?>
     </div>
 </div>
-<footer>
-    <br/>
-    <div class="footer-copyright text-center py-3">© 2019 Copyright:
-        <a href="https://adrianmmudarra.es"> Adrian Muñoz Mudarra</a>
-    </div>
-</footer>
+<?php
+Application::PonerFooter();
+?>
 </body>
 </html>

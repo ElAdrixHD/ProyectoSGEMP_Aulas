@@ -86,26 +86,26 @@ Application::PonerHead("Registro", "../css/registro.css")
                                 <p>Debes ser mayor de 18 años</p>
                               </div>";
                 } else{
-                    if (!$app->getDao()->estaConectado()){
+                    if (!$app->estaConectado()){
                         echo "<div class=\"alert alert-danger\" role=\"alert\">
-                                    <p>".$app->getDao()->getError()."</p>
+                                    <p>".$app->getError()."</p>
                                   </div>";
-                    }elseif ($app->getDao()->comprobarUsuario($user)){
+                    }elseif ($app->comprobarUsuario($user)){
                         echo "<div class=\"alert alert-danger\" role=\"alert\">
                                     <p>Ya existe ese usuario</p>
                                   </div>";
-                    }elseif ($app->getDao()->comprobarCorreo($correo)){
+                    }elseif ($app->comprobarCorreo($correo)){
                         echo "<div class=\"alert alert-danger\" role=\"alert\">
                                     <p>Ya existe ese correo electronico</p>
                                   </div>";
-                    }elseif($app->getDao()->registrarUsuario($user,$pass,$correo,$fnac,$nombre,$apellidos)){
+                    }elseif($app->registrarUsuario($user,$pass,$correo,$fnac,$nombre,$apellidos)){
                         echo "<div class=\"alert alert-success\" role=\"alert\">
                                     <p>Se ha registrado satisfactoriamente. Se le redireccionará automaticamente para que pueda iniciar sesión.</p>
                                   </div>";
                         echo "<script language=\"javascript\">setTimeout(function(){window.location.href=\"login.php\"},2500)</script>";
                     }else{
                         echo "<div class=\"alert alert-danger\" role=\"alert\">
-                                    <p>".$app->getDao()->getError()."</p>
+                                    <p>".$app->getError()."</p>
                                   </div>";
                     }
                 }
@@ -113,11 +113,9 @@ Application::PonerHead("Registro", "../css/registro.css")
         ?>
     </div>
 </div>
-<footer>
-    <br/>
-    <div class="footer-copyright text-center py-3">© 2019 Copyright:
-        <a href="https://adrianmmudarra.es"> Adrian Muñoz Mudarra</a>
-    </div>
-</footer>
+<div style="height: 100px"></div>
+<?php
+Application::PonerFooter();
+?>
 </body>
 </html>
