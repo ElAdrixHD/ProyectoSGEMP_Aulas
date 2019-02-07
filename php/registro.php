@@ -15,7 +15,9 @@ Application::PonerHead("Registro", "../css/registro.css")
             <div id="register-column" class="col-md-6">
                 <div id="register-box" class="col-md-12">
                     <form id="register-form" class="form" action="registro.php" method="post">
-                        <h3 class="text-center text-black">Registro</h3>
+                        <div class="form-group">
+                            <h3 class="text-center text-black">Registro</h3>
+                        </div>
                         <div class="form-group">
                             <label for="username" class="text-black">Nombre de usuario:</label><br>
                             <input type="text" name="username" id="username" autofocus="autofocus" required="required" placeholder="Nombre de usuario" class="form-control">
@@ -113,7 +115,7 @@ Application::PonerHead("Registro", "../css/registro.css")
         ?>
     </div>
 </div>
-<div style="height: 100px"></div>
+<div style="height: 50px"></div>
 <?php
 Application::PonerFooter();
 ?>

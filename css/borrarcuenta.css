@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.mybackground {
+    background-image: url("../img/tic_login.jpg");
+}
+a{
+    margin-top: 3px;
+}
+#borrar .container #borrar-row #borrar-column #borrar-box {
+    margin-top: 200px;
+    margin-left: 100px;
+    max-width: 400px;
+    height: 110px;
+    border: 1px solid rgb(156, 156, 156);
+    background-color: rgba(255, 255, 255, 0.6);
+}
+#borrar .container #borrar-row #borrar-column #borrar-box #borrar-form {
+    padding: 10px;
+}

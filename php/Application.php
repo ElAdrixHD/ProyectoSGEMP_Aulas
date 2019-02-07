@@ -10,6 +10,8 @@ class Application
     <meta name=\"description\" content=\"".$titulo."\">
     <link rel=\"stylesheet\" href=\"../css/bootstrap.css\"/>
     <link rel=\"stylesheet\" href=\"".$cssPersonalizado."\"/>
+    <link rel='stylesheet' href='../css/nav.css'/>
+    <link rel='stylesheet' href='../css/footer.css'/>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
     <script type='text/javascript' src='../js/bootstrap.js'></script>
     <link href=\"//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css\" rel=\"stylesheet\">
@@ -25,7 +27,6 @@ class Application
     public static function PonerFooter()
     {
         echo "<footer>
-    <br/>
     <div class=\"footer-copyright text-center py-3\">© 2019 Copyright:
         <a href=\"https://adrianmmudarra.es\"> Adrian Muñoz Mudarra</a>
     </div>
@@ -46,22 +47,22 @@ class Application
                 <a href=\"#\"><i class=\"fa fa-arrow-up fa-lg\"></i>Gestion de aulas <span class=\"arrow\"></span></a>
             </li>
             <ul class=\"sub-menu collapse\" id=\"gestion\">
-                <li><a href=\"#\">Busquedas de aulas</a></li>
-                <li><a href=\"#\">Reservas de aulas</a></li>
-                <li><a href=\"#\">Consultar reservas de un aula</a></li>
-                <li><a href=\"#\">Alta de reservas</a></li>
-                <li><a href=\"#\">Gestión de reservas</a></li>
+                <li onclick=\"window.location='#';\"><a href='#'>Busquedas de aulas</a></li>
+                <li onclick=\"window.location='#';\"><a href='#'>Reservas de aulas</a></li>
+                <li onclick=\"window.location='#';\"><a href='#'>Consultar reservas de un aula</a></li>
+                <li onclick=\"window.location='#';\"><a href='#'>Alta de reservas</a></li>
+                <li onclick=\"window.location='#';\"><a href='#'>Gestión de reservas</a></li>
             </ul>
 
             <li data-toggle=\"collapse\" data-target=\"#perfil\" class=\"collapsed\">
                 <a href=\"#\"><i class=\"fa fa-user fa-lg\"></i>Perfil<span class=\"arrow\"></span></a>
             </li>
             <ul class=\"sub-menu collapse\" id=\"perfil\">
-                <li><a href=\"#\">Mis datos</a></li>
-                <li><a href=\"#\">Eliminar mi cuenta</a></li>
+                <li onclick=\"window.location='#';\"><a href='#'>Mis datos</a></li>
+                <li onclick=\"window.location='borrarcuenta.php';\"><a href='#'>Eliminar mi cuenta</a></li>
             </ul>
 
-            <li>
+            <li onclick=\"window.location='desconectar.php';\">
                 <a href=\"desconectar.php\">
                     <i class=\"fa fa-power-off fa-lg\"></i>Desconectar
                 </a>
@@ -138,5 +139,10 @@ class Application
     public function validarUsuario($user, $pass)
     {
         return $this->dao->validarUsuario($user,$pass);
+    }
+
+    public function borrarCuenta($getUsuarioLogeado)
+    {
+        return $this->dao->borrarCuenta($getUsuarioLogeado);
     }
 }

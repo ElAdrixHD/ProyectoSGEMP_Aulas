@@ -15,7 +15,9 @@ Application::PonerHead("Inicio Sesion", "../css/login.css")
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
                     <form id="login-form" action="login.php" class="form" method="post">
-                        <h3 class="text-center text-black">Inicio Sesión</h3>
+                        <div class="form-group">
+                            <h3 class="text-center text-black">Inicio Sesión</h3>
+                        </div>
                         <div class="form-group">
                             <label for="username" class="text-black">Usuario:</label><br>
                             <input type="text" name="username" autofocus="autofocus" required="required" placeholder="Usuario" class="form-control">

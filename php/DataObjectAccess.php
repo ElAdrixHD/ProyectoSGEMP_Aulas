@@ -77,4 +77,16 @@ class DataObjectAccess
         $consulta = $this->conexion->query($sql);
         return $consulta;
     }
+
+    public function borrarCuenta($getUsuarioLogeado)
+    {
+        $sql = "DELETE FROM ".TABLA_USUARIO." WHERE ".COLUMNA_USUARIO." = '".$getUsuarioLogeado."'";
+        if ($this->conexion->exec($sql) === true){
+            return true;
+        }else{
+            $this->error = "Imposible borrar usuario";
+            echo $this->error;
+            return false;
+        }
+    }
 }
