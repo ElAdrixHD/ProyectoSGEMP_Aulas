@@ -43,7 +43,7 @@ class Application
     <div class=\"menu-list\">
 
         <ul id=\"menu-content\" class=\"menu-content collapse out\">
-            <li  data-toggle=\"collapse\" data-target=\"#gestion\" class=\"collapsed active\">
+            <li  data-toggle=\"collapse\" data-target=\"#gestion\" class=\"collapsed\">
                 <a href=\"#\"><i class=\"fa fa-arrow-up fa-lg\"></i>Gestion de aulas <span class=\"arrow\"></span></a>
             </li>
             <ul class=\"sub-menu collapse\" id=\"gestion\">

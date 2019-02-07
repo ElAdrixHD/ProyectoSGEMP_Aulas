@@ -70,11 +70,11 @@ Application::PonerHead("Registro", "../css/registro.css")
                 $nombre = $_POST["nombre"];
                 $fnac = $_POST["fnac"];
                 $correo = $_POST["correo"];
-                if (empty($user)){
+                if (empty(trim($user))){
                     echo "<div class=\"alert alert-warning\" role=\"alert\">
                                 <p>Debes introducir un nombre de usuario</p>
                               </div>";
-                }elseif (empty($pass)){
+                }elseif (empty(trim($pass))){
                     echo "<div class=\"alert alert-warning\" role=\"alert\">
                                 <p>Debes introducir una contraseña</p>
                               </div>";
@@ -82,8 +82,15 @@ Application::PonerHead("Registro", "../css/registro.css")
                     echo "<div class=\"alert alert-warning\" role=\"alert\">
                                 <p>Las contraseñas no son iguales</p>
                               </div>";
-                }
-                elseif (strftime("%Y", strtotime($fnac)) >= 2001 || strftime("%Y", strtotime($fnac)) <= 1930){
+                }elseif (empty(trim($nombre))){
+                    echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Debes introducir un nombre válido</p>
+                              </div>";
+                }elseif (empty(trim($apellidos))){
+                    echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Debes introducir un apellido válido</p>
+                              </div>";
+                }elseif (strftime("%Y", strtotime($fnac)) >= 2001 || strftime("%Y", strtotime($fnac)) <= 1930){
                     echo "<div class=\"alert alert-warning\" role=\"alert\">
                                 <p>Debes ser mayor de 18 años</p>
                               </div>";
