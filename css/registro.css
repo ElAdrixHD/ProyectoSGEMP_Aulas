@@ -17,6 +17,7 @@ a{
     height: 640px;
     border: 1px solid rgb(156, 156, 156);
     background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
 }
 #register .container #register-row #register-column #register-box #register-form {
     padding: 10px;

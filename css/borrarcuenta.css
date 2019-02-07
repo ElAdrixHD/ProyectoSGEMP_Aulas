@@ -17,6 +17,7 @@ a{
     height: 110px;
     border: 1px solid rgb(156, 156, 156);
     background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
 }
 #borrar .container #borrar-row #borrar-column #borrar-box #borrar-form {
     padding: 10px;
