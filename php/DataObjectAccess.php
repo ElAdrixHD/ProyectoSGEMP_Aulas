@@ -89,4 +89,17 @@ class DataObjectAccess
             return false;
         }
     }
+
+    public function getDatosUsuario($user)
+    {
+        try{
+            $sql = "SELECT nombre_usuario, nombre, apellidos, fecha_nacimiento, email FROM usuario WHERE nombre_usuario = '".$user."'";
+            $result = $this->conexion->query($sql);
+            return $result;
+        }catch (PDOException $e){
+            $this->error = $e->getMessage();
+            echo $this->error;
+        }
+
+    }
 }

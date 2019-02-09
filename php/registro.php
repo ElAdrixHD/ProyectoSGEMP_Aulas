@@ -58,7 +58,6 @@ Application::PonerHead("Registro", "../css/registro.css")
                     </form>
                 </div>
             </div>
-
         </div>
         <br/>
         <?php

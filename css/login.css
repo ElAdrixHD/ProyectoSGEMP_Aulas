@@ -6,6 +6,7 @@ body {
 
 .mybackground {
     background-image: url("../img/tic_login.jpg");
+    background-size: cover;
 }
 
 a{

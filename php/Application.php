@@ -58,8 +58,8 @@ class Application
                 <a href=\"#\"><i class=\"fa fa-user fa-lg\"></i>Perfil<span class=\"arrow\"></span></a>
             </li>
             <ul class=\"sub-menu collapse\" id=\"perfil\">
-                <li onclick=\"window.location='#';\"><a href='#'>Mis datos</a></li>
-                <li onclick=\"window.location='borrarcuenta.php';\"><a href='#'>Eliminar mi cuenta</a></li>
+                <li onclick=\"window.location='editar_perfil.php';\"><a href='editar_perfil.php'>Mis datos</a></li>
+                <li onclick=\"window.location='borrarcuenta.php';\"><a href='borrarcuenta.php'>Eliminar mi cuenta</a></li>
             </ul>
 
             <li onclick=\"window.location='desconectar.php';\">
@@ -144,5 +144,10 @@ class Application
     public function borrarCuenta($getUsuarioLogeado)
     {
         return $this->dao->borrarCuenta($getUsuarioLogeado);
+    }
+
+    public function getDatosUsuario($user)
+    {
+        return $this->dao->getDatosUsuario($user);
     }
 }
