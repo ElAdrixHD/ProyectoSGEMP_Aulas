@@ -6,6 +6,10 @@ define("PASSWORD", "123");
 define("TABLA_USUARIO", "usuario");
 define("COLUMNA_USUARIO", "nombre_usuario");
 define("COLUMNA_CONTRASENIA", "contrasenia");
+define("COLUMNA_FECHA", "fecha_nacimiento");
+define("COLUMNA_NOMBRE", "nombre");
+define("COLUMNA_ID","id");
+define("COLUMNA_APELLIDOS", "apellidos");
 define("COLUMNA_CORREO","email");
 class DataObjectAccess
 {
@@ -31,7 +35,7 @@ class DataObjectAccess
 
     public function validarUsuario($user, $pass)
     {
-        $sql = "SELECT nombre_usuario FROM ".TABLA_USUARIO." WHERE ".COLUMNA_USUARIO." = '".$user."' AND ".COLUMNA_CONTRASENIA." = sha1('".$pass."')";
+        $sql = "SELECT ".COLUMNA_USUARIO." FROM ".TABLA_USUARIO." WHERE ".COLUMNA_USUARIO." = '".$user."' AND ".COLUMNA_CONTRASENIA." = sha1('".$pass."')";
         $consulta = $this->conexion->query($sql);
         if ($consulta->rowCount() == 1){
             return true;
@@ -41,7 +45,7 @@ class DataObjectAccess
     }
 
     public function comprobarUsuario($user){
-        $sql = "SELECT nombre_usuario FROM ".TABLA_USUARIO." WHERE ".COLUMNA_USUARIO." = '".$user."'";
+        $sql = "SELECT ".COLUMNA_USUARIO." FROM ".TABLA_USUARIO." WHERE ".COLUMNA_USUARIO." = '".$user."'";
         $consulta = $this->conexion->query($sql);
         if ($consulta->rowCount() == 1){
             return true;
@@ -51,7 +55,7 @@ class DataObjectAccess
     }
 
     public function comprobarCorreo($correo){
-        $sql = "SELECT nombre_usuario FROM ".TABLA_USUARIO." WHERE ".COLUMNA_CORREO." = '".$correo."'";
+        $sql = "SELECT ".COLUMNA_USUARIO." FROM ".TABLA_USUARIO." WHERE ".COLUMNA_CORREO." = '".$correo."'";
         $consulta = $this->conexion->query($sql);
         if ($consulta->rowCount() == 1){
             return true;
@@ -62,7 +66,7 @@ class DataObjectAccess
 
     public function registrarUsuario($user, $pass, $correo, $fnac, $nombre, $apellidos)
     {
-        $sql = "INSERT INTO ".TABLA_USUARIO." (nombre_usuario, contrasenia, apellidos, nombre, fecha_nacimiento, email) VALUES ('".$user."',sha1('".$pass."'),'".$apellidos."','".$nombre."','".$fnac."','".$correo."')";
+        $sql = "INSERT INTO ".TABLA_USUARIO." (".COLUMNA_USUARIO.", ".COLUMNA_CONTRASENIA.", ".COLUMNA_APELLIDOS.", ".COLUMNA_NOMBRE.", ".COLUMNA_FECHA.", ".COLUMNA_CORREO.") VALUES ('".$user."',sha1('".$pass."'),'".$apellidos."','".$nombre."','".$fnac."','".$correo."')";
         if ($this->conexion->exec($sql) === false){
             $this->error = "Imposible registrar usuario";
             return false;
@@ -73,7 +77,7 @@ class DataObjectAccess
 
     public function getNombreReal($usuario)
     {
-        $sql = "SELECT nombre FROM ".TABLA_USUARIO." WHERE ".COLUMNA_USUARIO." = '".$usuario."'";
+        $sql = "SELECT ".COLUMNA_NOMBRE." FROM ".TABLA_USUARIO." WHERE ".COLUMNA_USUARIO." = '".$usuario."'";
         $consulta = $this->conexion->query($sql);
         return $consulta;
     }
@@ -93,7 +97,7 @@ class DataObjectAccess
     public function getDatosUsuario($user)
     {
         try{
-            $sql = "SELECT nombre_usuario, nombre, apellidos, fecha_nacimiento, email FROM usuario WHERE nombre_usuario = '".$user."'";
+            $sql = "SELECT ".COLUMNA_USUARIO.", ".COLUMNA_NOMBRE.", ".COLUMNA_APELLIDOS.", ".COLUMNA_FECHA.", ".COLUMNA_CORREO." FROM ".TABLA_USUARIO." WHERE ".COLUMNA_USUARIO." = '".$user."'";
             $result = $this->conexion->query($sql);
             return $result;
         }catch (PDOException $e){
@@ -101,5 +105,37 @@ class DataObjectAccess
             echo $this->error;
         }
 
+    }
+
+    private function getIDdeUsuario($usuario){
+        $sql = "SELECT ".COLUMNA_ID." FROM ".TABLA_USUARIO." WHERE ".COLUMNA_USUARIO." = '".$usuario."'";
+        $consulta = $this->conexion->query($sql);
+        return $consulta->fetch()["id"];
+    }
+
+    public function actualizarDatosConContrasenia($userA,$user, $pass, $apellidos, $nombre, $fnac, $correo)
+    {
+        $id = $this->getIDdeUsuario($userA);
+        $sql = "UPDATE ".TABLA_USUARIO." SET ".COLUMNA_USUARIO." = '".$user."', ".COLUMNA_CONTRASENIA." = sha1('".$pass."'), ".COLUMNA_APELLIDOS." = '".$apellidos."', ".COLUMNA_NOMBRE." = '".$nombre."', ".COLUMNA_FECHA." = '".$fnac."', ".COLUMNA_CORREO." = '".$correo."' WHERE ".COLUMNA_ID." = ".$id."";
+        if ($this->conexion->exec($sql) === true){
+            return true;
+        }else{
+            $this->error = "Imposible actualizar usuario";
+            echo $this->error;
+            return false;
+        }
+    }
+
+    public function actualizarDatosSinContrasenia($userA,$user, $apellidos, $nombre, $fnac, $correo)
+    {
+        $id = $this->getIDdeUsuario($userA);
+        $sql = "UPDATE ".TABLA_USUARIO." SET ".COLUMNA_USUARIO." = '".$user."', ".COLUMNA_APELLIDOS." = '".$apellidos."', ".COLUMNA_NOMBRE." = '".$nombre."', ".COLUMNA_FECHA." = '".$fnac."', ".COLUMNA_CORREO." = '".$correo."' WHERE ".COLUMNA_ID." = ".$id."";
+        if ($this->conexion->exec($sql) === true){
+            return true;
+        }else{
+            $this->error = "Imposible actualizar usuario";
+            echo $this->error;
+            return false;
+        }
     }
 }

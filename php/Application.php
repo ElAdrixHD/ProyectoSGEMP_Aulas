@@ -150,4 +150,14 @@ class Application
     {
         return $this->dao->getDatosUsuario($user);
     }
+
+    public function actualizarDatosConContrasenia($userA,$user, $pass, $apellidos, $nombre, $fnac, $correo)
+    {
+        return $this->dao->actualizarDatosConContrasenia($userA,$user, $pass, $apellidos, $nombre, $fnac, $correo);
+    }
+
+    public function actualizarDatosSinContrasenia($userA,$user, $apellidos, $nombre, $fnac, $correo)
+    {
+        return $this->dao->actualizarDatosSinContrasenia($userA,$user, $apellidos, $nombre, $fnac, $correo);
+    }
 }
