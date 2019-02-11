@@ -2,8 +2,6 @@
 include_once("Application.php");
 $app = new Application();
 $app->validarSesion();
-$datos_usuario = $app->getDatosUsuario($app->getUsuarioLogeado())->fetchAll();
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,11 +12,47 @@ Application::PonerHead("Editar Perfil", "../css/editar_perfil.css")
 <?php
 Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
 ?>
-
 <div id="editar">
     <div class="container">
         <div id="editar-row" class="row justify-content-center align-items-center">
             <div id="editar-column" class="col-md-6">
+                <br/>
+                <?php
+                if($_SERVER["REQUEST_METHOD"] == "POST") {
+                    $user = $_POST["username"];
+                    $pass = $_POST["password"];
+                    $passwordconfirmar = $_POST["passwordconfirmar"];
+                    $apellidos = $_POST["apellidos"];
+                    $nombre = $_POST["nombre"];
+                    $fnac = $_POST["fnac"];
+                    $correo = $_POST["correo"];
+
+                    if (!empty(trim($pass))) {
+                        if ($pass != $passwordconfirmar) {
+                            echo "<div class=\"alert alert-warning align-content-center\" role=\"alert\">
+                                <p>Las contraseñas no son iguales</p>
+                              </div>";
+                        } elseif ($app->actualizarDatosConContrasenia($app->getUsuarioLogeado(), $user, $pass, $apellidos, $nombre, $fnac, $correo)) {
+                            echo "<div class=\"alert alert-success\" role=\"alert\">
+                                    <p>Se ha modificado correctamente.</p>
+                                  </div>";
+                        } else {
+                            echo "<div class=\"alert alert-danger\" role=\"alert\">
+                                    <p>" . $app->getError() . "</p>
+                                  </div>";
+                        }
+                    } elseif ($app->actualizarDatosSinContrasenia($app->getUsuarioLogeado(), $user, $apellidos, $nombre, $fnac, $correo)) {
+                        echo "<div class=\"alert alert-success\" role=\"alert\">
+                                    <p>Se ha modificado correctamente.</p>
+                                  </div>";
+                    } else {
+                        echo "<div class=\"alert alert-danger\" role=\"alert\">
+                                    <p>" . $app->getError() . "</p>
+                                  </div>";
+                    }
+                }
+                $datos_usuario = $app->getDatosUsuario($app->getUsuarioLogeado())->fetchAll();
+                ?>
                 <div id="editar-box" class="col-md-12">
                     <form id="editar-form" action="editar_perfil.php" class="form" method="post">
                         <div class="form-group">
@@ -26,7 +60,7 @@ Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
                         </div>
                         <div class="form-group">
                             <label for="username" class="text-black">Nombre de usuario:</label><br>
-                            <input type="text" name="username" readonly id="username" autofocus="autofocus" placeholder="Nombre de usuario" value="<?php echo $datos_usuario[0]['nombre_usuario']?>" class="form-control">
+                            <input type="text" name="username" id="username" autofocus="autofocus" placeholder="Nombre de usuario" value="<?php echo $datos_usuario[0]['nombre_usuario']?>" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="correo" class="text-black">Correo electronico:</label><br>
@@ -65,41 +99,6 @@ Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
                 </div>
             </div>
         </div>
-        <?php
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $user = $_POST["username"];
-            $pass = $_POST["password"];
-            $passwordconfirmar = $_POST["passwordconfirmar"];
-            $apellidos = $_POST["apellidos"];
-            $nombre = $_POST["nombre"];
-            $fnac = $_POST["fnac"];
-            $correo = $_POST["correo"];
-
-            if (!empty(trim($pass))) {
-                if ($pass != $passwordconfirmar) {
-                    echo "<div class=\"alert alert-warning\" role=\"alert\">
-                                <p>Las contraseñas no son iguales</p>
-                              </div>";
-                } elseif ($app->actualizarDatosConContrasenia($app->getUsuarioLogeado(), $user, $pass, $apellidos, $nombre, $fnac, $correo)) {
-                    echo "<div class=\"alert alert-success\" role=\"alert\">
-                                    <p>Se ha modificado correctamente.</p>
-                                  </div>";
-                } else {
-                    echo "<div class=\"alert alert-danger\" role=\"alert\">
-                                    <p>" . $app->getError() . "</p>
-                                  </div>";
-                }
-            } elseif ($app->actualizarDatosSinContrasenia($app->getUsuarioLogeado(), $user, $apellidos, $nombre, $fnac, $correo)) {
-                echo "<div class=\"alert alert-success\" role=\"alert\">
-                                    <p>Se ha modificado correctamente.</p>
-                                  </div>";
-            } else {
-                echo "<div class=\"alert alert-danger\" role=\"alert\">
-                                    <p>" . $app->getError() . "</p>
-                                  </div>";
-            }
-        }
-        ?>
     </div>
 </div>
 <div style="height: 100px"></div>

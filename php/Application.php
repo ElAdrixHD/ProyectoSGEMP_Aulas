@@ -37,7 +37,7 @@ class Application
     {
         echo "<nav>
 <div class=\"nav-side-menu\">
-    <div class=\"brand\">Bienvenido, ".$user.".</div>
+    <div class=\"brand\">Bienvenido, ".$user."</div>
     <i class=\"fa fa-bars fa-2x toggle-btn\" data-toggle=\"collapse\" data-target=\"#menu-content\"></i>
 
     <div class=\"menu-list\">
@@ -74,7 +74,7 @@ class Application
     }
 
     public function getUsuarioLogeado(){
-        return strtoupper($_SESSION['username']);
+        return strtoupper($this->getUsuarioPorID($_SESSION['username']));
     }
 
     public function guardarSesion($user){
@@ -159,5 +159,14 @@ class Application
     public function actualizarDatosSinContrasenia($userA,$user, $apellidos, $nombre, $fnac, $correo)
     {
         return $this->dao->actualizarDatosSinContrasenia($userA,$user, $apellidos, $nombre, $fnac, $correo);
+    }
+
+    public function getUsuarioPorID($id){
+        return $this->dao->getUsuarioPorID($id);
+    }
+
+    public function getID($user)
+    {
+        return $this->dao->getIDdeUsuario($user);
     }
 }

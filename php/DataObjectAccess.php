@@ -89,7 +89,6 @@ class DataObjectAccess
             return true;
         }else{
             $this->error = "Imposible borrar usuario";
-            echo $this->error;
             return false;
         }
     }
@@ -102,12 +101,11 @@ class DataObjectAccess
             return $result;
         }catch (PDOException $e){
             $this->error = $e->getMessage();
-            echo $this->error;
         }
 
     }
 
-    private function getIDdeUsuario($usuario){
+    public function getIDdeUsuario($usuario){
         $sql = "SELECT ".COLUMNA_ID." FROM ".TABLA_USUARIO." WHERE ".COLUMNA_USUARIO." = '".$usuario."'";
         $consulta = $this->conexion->query($sql);
         return $consulta->fetch()["id"];
@@ -117,11 +115,12 @@ class DataObjectAccess
     {
         $id = $this->getIDdeUsuario($userA);
         $sql = "UPDATE ".TABLA_USUARIO." SET ".COLUMNA_USUARIO." = '".$user."', ".COLUMNA_CONTRASENIA." = sha1('".$pass."'), ".COLUMNA_APELLIDOS." = '".$apellidos."', ".COLUMNA_NOMBRE." = '".$nombre."', ".COLUMNA_FECHA." = '".$fnac."', ".COLUMNA_CORREO." = '".$correo."' WHERE ".COLUMNA_ID." = ".$id."";
-        if ($this->conexion->exec($sql) === true){
+        $consulta = $this->conexion->prepare($sql);
+        $consulta->execute();
+        if ($consulta->rowCount()){
             return true;
         }else{
             $this->error = "Imposible actualizar usuario";
-            echo $this->error;
             return false;
         }
     }
@@ -130,12 +129,20 @@ class DataObjectAccess
     {
         $id = $this->getIDdeUsuario($userA);
         $sql = "UPDATE ".TABLA_USUARIO." SET ".COLUMNA_USUARIO." = '".$user."', ".COLUMNA_APELLIDOS." = '".$apellidos."', ".COLUMNA_NOMBRE." = '".$nombre."', ".COLUMNA_FECHA." = '".$fnac."', ".COLUMNA_CORREO." = '".$correo."' WHERE ".COLUMNA_ID." = ".$id."";
-        if ($this->conexion->exec($sql) === true){
+        $consulta = $this->conexion->prepare($sql);
+        $consulta->execute();
+        if ($consulta->rowCount()){
             return true;
         }else{
             $this->error = "Imposible actualizar usuario";
-            echo $this->error;
             return false;
         }
+    }
+
+    public function getUsuarioPorID($id)
+    {
+        $sql = "SELECT ".COLUMNA_USUARIO." FROM ".TABLA_USUARIO." WHERE ".COLUMNA_ID." = ".$id."";
+        $result = $this->conexion->query($sql);
+        return $result->fetch()['nombre_usuario'];
     }
 }

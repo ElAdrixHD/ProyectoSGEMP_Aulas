@@ -59,7 +59,7 @@ Application::PonerHead("Inicio Sesion", "../css/login.css")
                                     <p>".$app->getError()."</p>
                                   </div>";
                     }elseif ($app->validarUsuario($user,$pass)){
-                        $app->guardarSesion($user);
+                        $app->guardarSesion($app->getID($user));
                         echo "<script language=\"javascript\">window.location.href=\"panel.php\"</script>";
                     }else{
                         echo "<div class=\"alert alert-danger\" role=\"alert\">

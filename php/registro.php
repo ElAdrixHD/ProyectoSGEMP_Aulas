@@ -13,6 +13,66 @@ Application::PonerHead("Registro", "../css/registro.css")
     <div class="container">
         <div id="register-row" class="row justify-content-center align-items-center">
             <div id="register-column" class="col-md-6">
+                <br/>
+                <?php
+                if($_SERVER["REQUEST_METHOD"] == "POST"){
+                    $user = $_POST["username"];
+                    $pass = $_POST["password"];
+                    $passwordconfirmar = $_POST["passwordconfirmar"];
+                    $apellidos = $_POST["apellidos"];
+                    $nombre = $_POST["nombre"];
+                    $fnac = $_POST["fnac"];
+                    $correo = $_POST["correo"];
+                    if (empty(trim($user))){
+                        echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Debes introducir un nombre de usuario</p>
+                              </div>";
+                    }elseif (empty(trim($pass))){
+                        echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Debes introducir una contraseña</p>
+                              </div>";
+                    }elseif ($pass != $passwordconfirmar){
+                        echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Las contraseñas no son iguales</p>
+                              </div>";
+                    }elseif (empty(trim($nombre))){
+                        echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Debes introducir un nombre válido</p>
+                              </div>";
+                    }elseif (empty(trim($apellidos))){
+                        echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Debes introducir un apellido válido</p>
+                              </div>";
+                    }elseif (strftime("%Y", strtotime($fnac)) >= 2001 || strftime("%Y", strtotime($fnac)) <= 1930){
+                        echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Debes ser mayor de 18 años</p>
+                              </div>";
+                    } else{
+                        if (!$app->estaConectado()){
+                            echo "<div class=\"alert alert-danger\" role=\"alert\">
+                                    <p>".$app->getError()."</p>
+                                  </div>";
+                        }elseif ($app->comprobarUsuario($user)){
+                            echo "<div class=\"alert alert-danger\" role=\"alert\">
+                                    <p>Ya existe ese usuario</p>
+                                  </div>";
+                        }elseif ($app->comprobarCorreo($correo)){
+                            echo "<div class=\"alert alert-danger\" role=\"alert\">
+                                    <p>Ya existe ese correo electronico</p>
+                                  </div>";
+                        }elseif($app->registrarUsuario($user,$pass,$correo,$fnac,$nombre,$apellidos)){
+                            echo "<div class=\"alert alert-success\" role=\"alert\">
+                                    <p>Se ha registrado satisfactoriamente. Se le redireccionará automaticamente para que pueda iniciar sesión.</p>
+                                  </div>";
+                            echo "<script language=\"javascript\">setTimeout(function(){window.location.href=\"login.php\"},2500)</script>";
+                        }else{
+                            echo "<div class=\"alert alert-danger\" role=\"alert\">
+                                    <p>".$app->getError()."</p>
+                                  </div>";
+                        }
+                    }
+                }
+                ?>
                 <div id="register-box" class="col-md-12">
                     <form id="register-form" class="form" action="registro.php" method="post">
                         <div class="form-group">
@@ -59,66 +119,6 @@ Application::PonerHead("Registro", "../css/registro.css")
                 </div>
             </div>
         </div>
-        <br/>
-        <?php
-            if($_SERVER["REQUEST_METHOD"] == "POST"){
-                $user = $_POST["username"];
-                $pass = $_POST["password"];
-                $passwordconfirmar = $_POST["passwordconfirmar"];
-                $apellidos = $_POST["apellidos"];
-                $nombre = $_POST["nombre"];
-                $fnac = $_POST["fnac"];
-                $correo = $_POST["correo"];
-                if (empty(trim($user))){
-                    echo "<div class=\"alert alert-warning\" role=\"alert\">
-                                <p>Debes introducir un nombre de usuario</p>
-                              </div>";
-                }elseif (empty(trim($pass))){
-                    echo "<div class=\"alert alert-warning\" role=\"alert\">
-                                <p>Debes introducir una contraseña</p>
-                              </div>";
-                }elseif ($pass != $passwordconfirmar){
-                    echo "<div class=\"alert alert-warning\" role=\"alert\">
-                                <p>Las contraseñas no son iguales</p>
-                              </div>";
-                }elseif (empty(trim($nombre))){
-                    echo "<div class=\"alert alert-warning\" role=\"alert\">
-                                <p>Debes introducir un nombre válido</p>
-                              </div>";
-                }elseif (empty(trim($apellidos))){
-                    echo "<div class=\"alert alert-warning\" role=\"alert\">
-                                <p>Debes introducir un apellido válido</p>
-                              </div>";
-                }elseif (strftime("%Y", strtotime($fnac)) >= 2001 || strftime("%Y", strtotime($fnac)) <= 1930){
-                    echo "<div class=\"alert alert-warning\" role=\"alert\">
-                                <p>Debes ser mayor de 18 años</p>
-                              </div>";
-                } else{
-                    if (!$app->estaConectado()){
-                        echo "<div class=\"alert alert-danger\" role=\"alert\">
-                                    <p>".$app->getError()."</p>
-                                  </div>";
-                    }elseif ($app->comprobarUsuario($user)){
-                        echo "<div class=\"alert alert-danger\" role=\"alert\">
-                                    <p>Ya existe ese usuario</p>
-                                  </div>";
-                    }elseif ($app->comprobarCorreo($correo)){
-                        echo "<div class=\"alert alert-danger\" role=\"alert\">
-                                    <p>Ya existe ese correo electronico</p>
-                                  </div>";
-                    }elseif($app->registrarUsuario($user,$pass,$correo,$fnac,$nombre,$apellidos)){
-                        echo "<div class=\"alert alert-success\" role=\"alert\">
-                                    <p>Se ha registrado satisfactoriamente. Se le redireccionará automaticamente para que pueda iniciar sesión.</p>
-                                  </div>";
-                        echo "<script language=\"javascript\">setTimeout(function(){window.location.href=\"login.php\"},2500)</script>";
-                    }else{
-                        echo "<div class=\"alert alert-danger\" role=\"alert\">
-                                    <p>".$app->getError()."</p>
-                                  </div>";
-                    }
-                }
-            }
-        ?>
     </div>
 </div>
 <div style="height: 50px"></div>
