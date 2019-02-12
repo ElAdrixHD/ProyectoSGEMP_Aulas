@@ -4,6 +4,7 @@ define("DSN", "mysql:host=localhost;dbname=".DATABASE);
 define("USER", "www-data");
 define("PASSWORD", "123");
 define("TABLA_USUARIO", "usuario");
+define("TABLA_AULA","aula");
 define("COLUMNA_USUARIO", "nombre_usuario");
 define("COLUMNA_CONTRASENIA", "contrasenia");
 define("COLUMNA_FECHA", "fecha_nacimiento");
@@ -144,5 +145,12 @@ class DataObjectAccess
         $sql = "SELECT ".COLUMNA_USUARIO." FROM ".TABLA_USUARIO." WHERE ".COLUMNA_ID." = ".$id."";
         $result = $this->conexion->query($sql);
         return $result->fetch()['nombre_usuario'];
+    }
+
+    public function getAulas($nombre_aula, $nmbre_corto, $descripcion)
+    {
+        $sql = "SELECT * FROM ".TABLA_AULA." WHERE nombre_aula rlike '".$nombre_aula."'";
+        $result = $this->conexion->query($sql);
+        return $result;
     }
 }

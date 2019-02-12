@@ -47,7 +47,7 @@ class Application
                 <a href=\"#\"><i class=\"fa fa-arrow-up fa-lg\"></i>Gestion de aulas <span class=\"arrow\"></span></a>
             </li>
             <ul class=\"sub-menu collapse\" id=\"gestion\">
-                <li onclick=\"window.location='#';\"><a href='#'>Busquedas de aulas</a></li>
+                <li onclick=\"window.location='buscar_aula.php';\"><a href='buscar_aula.php'>Busquedas de aulas</a></li>
                 <li onclick=\"window.location='#';\"><a href='#'>Reservas de aulas</a></li>
                 <li onclick=\"window.location='#';\"><a href='#'>Consultar reservas de un aula</a></li>
                 <li onclick=\"window.location='#';\"><a href='#'>Alta de reservas</a></li>
@@ -168,5 +168,10 @@ class Application
     public function getID($user)
     {
         return $this->dao->getIDdeUsuario($user);
+    }
+
+    public function getAulas($nombre_aula, $nmbre_corto, $descripcion)
+    {
+        return $this->dao->getAulas($nombre_aula,$nmbre_corto,$descripcion);
     }
 }
