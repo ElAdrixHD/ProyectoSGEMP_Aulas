@@ -12,8 +12,10 @@ Application::PonerHead("Buscar Aulas", "../css/buscar_aula.css")
 <?php
 Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
 ?>
-
-        <div class="container">
+<div id="buscar_aula">
+    <div class="container">
+        <div id="buscar_aula-row" class="row justify-content-center align-items-center">
+            <div id="buscar_aula-column" class="col-md-6">
             <h1 class="text-white text-center">BUSQUEDA DE AULAS</h1>
             <br/>
             <form method="POST" action="panel.php">
@@ -32,6 +34,9 @@ Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
                 <input type="submit" value="Buscar aulas" class="btn btn-primary"/>
             </form>
         </div>
+        </div>
+    </div>
+</div>
 
 <div style="height: 50px"></div>
 <?php

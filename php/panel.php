@@ -13,7 +13,10 @@ Application::PonerHead("Panel de control", "../css/panel.css")
 <?php
 Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
 ?>
-<div class="container" style="margin-top: 50px">
+<div id="panel">
+    <div class="container">
+        <div id="panel-row" class="row justify-content-center align-items-center">
+            <div id="panel-column" class="col-md-8">
 <?php
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'],"/")+1) === "buscar_aula.php"){
@@ -51,6 +54,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 }
 ?>
+            </div>
+        </div>
+    </div>
 </div>
 <?php
 Application::PonerFooter();
