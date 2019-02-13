@@ -4897,7 +4897,7 @@ input[type="button"].btn-block {
 }
 
 .alert {
-  position: fixed;
+  position: center;
   padding: 0.75rem 1.25rem;
   margin-bottom: 1rem;
   border: 1px solid transparent;

@@ -16,7 +16,7 @@ Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
 <div id="panel">
     <div class="container">
         <div id="panel-row" class="row justify-content-center align-items-center">
-            <div id="panel-column" class="col-md-8">
+            <div id="panel-column" class="col-9">
 <?php
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'],"/")+1) === "buscar_aula.php"){
@@ -39,12 +39,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     $namecolumn = $result->getColumnMeta($i);
                     echo "<th>".strtoupper($namecolumn['name'])."</th>";
                 }
+                echo "<th>".strtoupper("reservar")."</th>";
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
                 foreach ($list as $fila){
                     echo "<tr>";
-                    echo "<td>".$fila['nombre_aula']."</td><td>".$fila['nombre_corto']."</td><td>".$fila['ubicacion']."</td><td>".$fila['tic']."</td><td>".$fila['numero_pcs']."</td><td>".$fila['descripcion']."</td>";
+                    echo "<td>".$fila['nombre_aula']."</td><td>".$fila['nombre_corto']."</td><td>".$fila['ubicacion']."</td><td>".$fila['tic']."</td><td>".$fila['numero_pcs']."</td><td>".$fila['descripcion']."</td><td><a class='btn btn-outline-secondary' href='#'>Reservar</a></td>";
                     echo "</tr>";
                 }
                 echo "</tbody>";

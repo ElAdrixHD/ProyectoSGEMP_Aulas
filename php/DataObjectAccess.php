@@ -12,6 +12,9 @@ define("COLUMNA_NOMBRE", "nombre");
 define("COLUMNA_ID","id");
 define("COLUMNA_APELLIDOS", "apellidos");
 define("COLUMNA_CORREO","email");
+define("COLUMNA_NOMBRE_AULA","nombre_aula");
+define("COLUMNA_NOMBRE_CORTO_AULA","nombre_corto");
+define("COLUMNA_DESCRIPCION_AULA","descipcion");
 class DataObjectAccess
 {
     private $conexion;
@@ -147,10 +150,50 @@ class DataObjectAccess
         return $result->fetch()['nombre_usuario'];
     }
 
+    /**
+     * METODO PRESTADO POR RUBEN ZUÑIGA
+     *
+     * @param $nombre_aula
+     * @param $nmbre_corto
+     * @param $descripcion
+     * @return bool|PDOStatement
+     */
     public function getAulas($nombre_aula, $nmbre_corto, $descripcion)
     {
-        $sql = "SELECT * FROM ".TABLA_AULA." WHERE nombre_aula rlike '".$nombre_aula."'";
-        $result = $this->conexion->query($sql);
-        return $result;
+        try {
+            $sql = "SELECT * FROM ".TABLA_AULA;
+            $firstSentence = false;
+            $array = array(
+                array(COLUMNA_NOMBRE_AULA." rlike :nombre_aula",$nombre_aula),
+                array(COLUMNA_NOMBRE_CORTO_AULA." = :nombre_corto_aula",$nmbre_corto),
+                array(COLUMNA_DESCRIPCION_AULA." rlike :descripcion",$descripcion),
+            );
+
+            for ($i = 0; $i < count($array); $i++){
+                if (!empty($array[$i][1])) {
+                    if (!$firstSentence){
+                        $sql = $sql." WHERE ";
+                        $firstSentence = true;
+                    } else {
+                        $sql = $sql." AND ";
+                    }
+                    $sql = $sql.$array[$i][0];
+                }
+            }
+
+            $resultset = $this->conexion->prepare($sql);
+
+            if (!empty($nombre_aula))
+                $resultset->bindParam(":nombre_aula", $nombre_aula);
+            if (!empty($nmbre_corto))
+                $resultset->bindParam(":nombre_corto_aula", $nmbre_corto);
+            if (!empty($descripcion))
+                $resultset->bindParam(":descripcion", $descripcion);
+
+            $resultset->execute();
+            return $resultset;
+        } catch (PDOException $e) {
+            $this->error = $e->getMessage();
+        }
     }
 }

@@ -29,7 +29,7 @@ Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
 
                     if (!empty(trim($pass))) {
                         if ($pass != $passwordconfirmar) {
-                            echo "<div class=\"alert alert-warning align-content-center\" role=\"alert\">
+                            echo "<div class=\"alert alert-warning\" role=\"alert\">
                                 <p>Las contraseñas no son iguales</p>
                               </div>";
                         } elseif ($app->actualizarDatosConContrasenia($app->getUsuarioLogeado(), $user, $pass, $apellidos, $nombre, $fnac, $correo)) {
