@@ -48,9 +48,8 @@ class Application
             </li>
             <ul class=\"sub-menu collapse\" id=\"gestion\">
                 <li onclick=\"window.location='buscar_aula.php';\"><a href='buscar_aula.php'>Busquedas de aulas</a></li>
-                <li onclick=\"window.location='#';\"><a href='#'>Reservas de aulas</a></li>
+                <li onclick=\"window.location='#';\"><a href='#'>Reservar de aula</a></li>
                 <li onclick=\"window.location='#';\"><a href='#'>Consultar reservas de un aula</a></li>
-                <li onclick=\"window.location='#';\"><a href='#'>Alta de reservas</a></li>
                 <li onclick=\"window.location='#';\"><a href='#'>Gestión de reservas</a></li>
             </ul>
 

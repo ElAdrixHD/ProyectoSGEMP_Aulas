@@ -1,28 +1,21 @@
 .mybackground {
     background-image: url("../img/tic_login.jpg");
     background-size: cover;
+    font-family: sans-serif;
 }
-.span_li{
-    height: 35px;
-    width: 227px;
-}
-
-a{
-    margin-top: -98px;
+h1{
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 #editar .container #editar-row #editar-column #editar-box {
     margin-top: 50px;
     max-width: 580px;
     width: 580px;
     height: 640px;
-    border: 1px solid rgb(156, 156, 156);
-    background-color: rgba(255, 255, 255, 0.6);
     border-radius: 20px;
-    font-family: sans-serif;
+
 }
-#editar .container #editar-row #editar-column #editar-box #editar-form {
-    padding: 10px;
-}
-#editar .container #editar-row #editar-column #editar-box #editar-form #register-link {
-    margin-top: -85px;
+
+a{
+    margin-top: -95px;
 }

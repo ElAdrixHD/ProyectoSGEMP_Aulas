@@ -22,11 +22,11 @@ Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
                             <label for="submit" class="control-label">¿Estás seguro que quieres borrar tu cuenta?</label>
                             <div class="form-inline row">
                                 <div class="form-group col-sm-9">
-                                    <input type="submit" name="submit" class="btn btn-danger" value="SI">
+                                    <input type="submit" name="submit" class="btn btn-danger" value="Si">
                                 </div>
                                 <div class="form-group col-sm-1">
                                     <div id="back-link" class="text-right form-group">
-                                        <a href="panel.php" class="btn btn-outline-dark">NO</a>
+                                        <a href="panel.php" class="btn btn-outline-dark">No</a>
                                     </div>
                                 </div>
                             </div>
