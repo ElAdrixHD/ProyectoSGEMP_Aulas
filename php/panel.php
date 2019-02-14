@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 echo "<tbody>";
                 foreach ($list as $fila){
                     echo "<tr>";
-                    echo "<td>".$fila['nombre_aula']."</td><td>".$fila['nombre_corto']."</td><td>".$fila['ubicacion']."</td><td>".$fila['tic']."</td><td>".$fila['numero_pcs']."</td><td>".$fila['descripcion']."</td><td><a class='btn btn-outline-secondary' href='#'>Reservar</a></td>";
+                    echo "<td>".$fila['nombre_aula']."</td><td>".$fila['nombre_corto']."</td><td>".$fila['ubicacion']."</td><td>".$fila['tic']."</td><td>".$fila['numero_pcs']."</td><td>".$fila['descripcion']."</td><td><a class='btn btn-outline-secondary' href='reservar_aula.php?aula=".$fila['id_aula']."'>Reservar</a></td>";
                     echo "</tr>";
                 }
                 echo "</tbody>";

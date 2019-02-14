@@ -12,6 +12,7 @@ define("COLUMNA_NOMBRE", "nombre");
 define("COLUMNA_ID","id");
 define("COLUMNA_APELLIDOS", "apellidos");
 define("COLUMNA_CORREO","email");
+define("COLUMNA_ID_AULA","id_aula");
 define("COLUMNA_NOMBRE_AULA","nombre_aula");
 define("COLUMNA_NOMBRE_CORTO_AULA","nombre_corto");
 define("COLUMNA_DESCRIPCION_AULA","descipcion");
@@ -158,7 +159,7 @@ class DataObjectAccess
      * @param $descripcion
      * @return bool|PDOStatement
      */
-    public function getAulas($nombre_aula, $nmbre_corto, $descripcion)
+    public function getBuscarAulas($nombre_aula, $nmbre_corto, $descripcion)
     {
         try {
             $sql = "SELECT * FROM ".TABLA_AULA;
@@ -195,5 +196,19 @@ class DataObjectAccess
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
         }
+    }
+
+    public function getNombreAulaPorID($aula){
+
+        $sql = "SELECT ".COLUMNA_NOMBRE_AULA." FROM ".TABLA_AULA." WHERE ".COLUMNA_ID_AULA." = ".$aula."";
+        $result = $this->conexion->query($sql);
+        return $result->fetch()['nombre_aula'];
+    }
+
+    public function getNombreAulas()
+    {
+        $sql = "SELECT ".COLUMNA_ID_AULA.",".COLUMNA_NOMBRE_AULA." FROM ".TABLA_AULA;
+        $result = $this->conexion->query($sql);
+        return $result;
     }
 }

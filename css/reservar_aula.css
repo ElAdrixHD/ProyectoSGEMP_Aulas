@@ -1,0 +1,18 @@
+
+.mybackground {
+    background-image: url("../img/tic_login.jpg");
+    background-size: cover;
+    font-family: sans-serif;
+}
+h1{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+#reservar_aula .container #reservar_aula-row #reservar_aula-column #reservar_aula-box {
+    margin-top: 100px;
+    max-width: 580px;
+    width: 580px;
+    height: 640px;
+    border-radius: 20px;
+}
+
