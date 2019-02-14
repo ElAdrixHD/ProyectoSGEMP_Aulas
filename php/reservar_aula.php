@@ -2,7 +2,7 @@
 include_once("Application.php");
 session_start();
 $app = new Application();
-
+$app->validarSesion();
 ?>
 <!DOCTYPE html>
 <html lang="es">
