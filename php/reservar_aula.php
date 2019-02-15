@@ -1,6 +1,5 @@
 <?php
 include_once("Application.php");
-session_start();
 $app = new Application();
 $app->validarSesion();
 ?>
@@ -29,7 +28,7 @@ Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
                                   </select>";
                         }else{
                             ?>
-                            <select name="aula" class="form-control">
+                            <select name="aula" class="form-control" required>
                                 <option value=""></option>
                                 <?php
                                 $result = $app->getNombreAulas()->fetchAll();
@@ -43,8 +42,23 @@ Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
                         ?>
                     </div>
                     <div class="form-group">
-                        <label for="nombre_corto_aula" class="text-white">Nombre corto:</label>
-                        <input name="nombre_corto_aula" class="form-control" type="text" placeholder="Nombre corto del aula">
+                        <label for="fecha" class="control-label text-white">Fecha y hora:</label>
+                        <div class="form-inline row">
+                            <div class="form-group col-sm-6">
+                                <input type="date" class="form-control" id="fecha" name="fecha" required>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <select name="hora" class="form-control" required>
+                                    <option value="0"></option>
+                                    <?php
+                                    $horas = $app->getHoras();
+                                    for ($i = 1; i<=6;$i++){
+                                        echo "<option value=\"".$i."\">Hola</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="descripcion" class="text-white">Descripción:</label>

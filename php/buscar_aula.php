@@ -1,6 +1,5 @@
 <?php
 include_once("Application.php");
-session_start();
 $app = new Application();
 $app->validarSesion();
 ?>
