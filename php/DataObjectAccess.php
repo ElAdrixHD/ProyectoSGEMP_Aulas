@@ -16,7 +16,11 @@ define("COLUMNA_CORREO","email");
 define("COLUMNA_ID_AULA","id_aula");
 define("COLUMNA_NOMBRE_AULA","nombre_aula");
 define("COLUMNA_NOMBRE_CORTO_AULA","nombre_corto");
-define("COLUMNA_DESCRIPCION_AULA","descipcion");
+define("COLUMNA_DESCRIPCION","descripcion");
+define("COLUMNA_ID_RESERVA","id_reserva");
+define("COLUMNA_FECHA_RESERVA","fecha_reserva");
+define("COLUMNA_HORA_RESERVA","hora_reserva");
+define("COLUMNA_ID_USUARIO","id_usuario");
 class DataObjectAccess
 {
     private $conexion;
@@ -154,11 +158,6 @@ class DataObjectAccess
 
     /**
      * METODO PRESTADO POR RUBEN ZUÑIGA
-     *
-     * @param $nombre_aula
-     * @param $nmbre_corto
-     * @param $descripcion
-     * @return bool|PDOStatement
      */
     public function getBuscarAulas($nombre_aula, $nmbre_corto, $descripcion)
     {
@@ -168,7 +167,7 @@ class DataObjectAccess
             $array = array(
                 array(COLUMNA_NOMBRE_AULA." rlike :nombre_aula",$nombre_aula),
                 array(COLUMNA_NOMBRE_CORTO_AULA." = :nombre_corto_aula",$nmbre_corto),
-                array(COLUMNA_DESCRIPCION_AULA." rlike :descripcion",$descripcion),
+                array(COLUMNA_DESCRIPCION." rlike :descripcion",$descripcion),
             );
 
             for ($i = 0; $i < count($array); $i++){
@@ -215,8 +214,19 @@ class DataObjectAccess
 
     public function getHorasReserva($aula, $date)
     {
-        $sql = "SELECT hora_reserva FROM ".TABLA_RESERVA." WHERE fecha_reserva = '".$date."' and id_aula = ".$aula;
+        $sql = "SELECT ".COLUMNA_HORA_RESERVA." FROM ".TABLA_RESERVA." WHERE ".COLUMNA_FECHA_RESERVA." = '".$date."' and ".COLUMNA_ID_AULA." = ".$aula;
         $result = $this->conexion->query($sql);
         return $result;
+    }
+
+    public function insertarReserva($aula, $fecha, $horita, $motivo, $getUsuarioLogeado)
+    {
+        $sql = "INSERT INTO ".TABLA_RESERVA." (".COLUMNA_FECHA_RESERVA.", ".COLUMNA_HORA_RESERVA.", ".COLUMNA_ID_AULA.", ".COLUMNA_ID_USUARIO.", ".COLUMNA_DESCRIPCION.") VALUES ('".$fecha."','".$horita."',".$aula.",'".$getUsuarioLogeado."','".$motivo."')";
+        if ($this->conexion->exec($sql) === false){
+            $this->error = "Imposible registrar usuario";
+            return false;
+        }else{
+            return true;
+        }
     }
 }

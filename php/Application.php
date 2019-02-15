@@ -189,4 +189,9 @@ class Application
     {
         return $this->dao->getHorasReserva($aula,$date);
     }
+
+    public function insertarReserva($aula, $fecha, $horita, $motivo, $getUsuarioLogeado)
+    {
+        return $this->dao->insertarReserva($aula, $fecha, $horita, $motivo, $getUsuarioLogeado);
+    }
 }

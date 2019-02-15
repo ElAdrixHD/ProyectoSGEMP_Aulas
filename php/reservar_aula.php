@@ -16,9 +16,54 @@ Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
     <div class="container">
         <div id="reservar_aula-row" class="row justify-content-center align-items-center">
             <div id="reservar_aula-column" class="col-md-6">
+                <br/>
+                <?php
+                if($_SERVER["REQUEST_METHOD"] == "POST"){
+                    $aula = $_POST["aula"];
+                    $fecha = $_POST["fecha"];
+                    $horita = $_POST["hora"];
+                    $motivo = $_POST["motivo"];
+                    if (empty(trim($aula))){
+                        echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Debes introducir un aula</p>
+                              </div>";
+                    }elseif (empty(trim($fecha))){
+                        echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Debes introducir una fecha</p>
+                              </div>";
+                    }elseif (empty(trim($horita))){
+                        echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Debes introducir una hora de reserva</p>
+                              </div>";
+                    }elseif (empty(trim($motivo))){
+                        echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>Debes introducir un motivo válido</p>
+                              </div>";
+                    }elseif ($fecha <= date("Y-m-d")){
+                        echo "<div class=\"alert alert-warning\" role=\"alert\">
+                                <p>No puedes poner una fecha pasada o presente.</p>
+                                <p>Debes reservarlo con un dia de antelación.</p>
+                              </div>";
+                    } else{
+                        if (!$app->estaConectado()){
+                            echo "<div class=\"alert alert-danger\" role=\"alert\">
+                                    <p>".$app->getError()."</p>
+                                  </div>";
+                        }elseif($app->insertarReserva($aula,$fecha,$horita,$motivo,$app->getID($app->getUsuarioLogeado()))){
+                            echo "<div class=\"alert alert-success\" role=\"alert\">
+                                    <p>Se ha insertado satisfactoriamente.</p>
+                                  </div>";
+                        }else{
+                            echo "<div class=\"alert alert-danger\" role=\"alert\">
+                                    <p>".$app->getError()."</p>
+                                  </div>";
+                        }
+                    }
+                }
+                ?>
                 <h1 class="text-white text-center">RESERVA DE AULA</h1>
                 <br/>
-                <form method="POST" action="panel.php">
+                <form method="POST" action="reservar_aula.php">
                     <div class="form-group">
                         <label for="aula" class="text-white">Selecciona un aula:</label>
                         <select name="aula" class="form-control"required onchange="if (this.value) window.location.href='reservar_aula.php?aula='+this.value">
@@ -65,17 +110,17 @@ Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
                                             }
                                         }else{
                                             $list = $horas->fetchAll();
-                                            for ($i = 1;$i<=6;$i++){
-                                                foreach ($list as $item){
-                                                    $hora = $i."º Hora";
-                                                    if ($hora !== $item['hora_reserva']) {
-                                                        echo "<option value=\"" . $i . "º Hora\">" . $i . "º Hora</option>";
-                                                    }
+                                            $array = array();
+                                            foreach ($list as $item){
+                                                $array[] = $item['hora_reserva'];
+                                            }
+                                            for ($j = 1; $j<=6;$j++){
+                                                $hora = sprintf("%dº Hora", $j);
+                                                if (!in_array($hora,$array)){
+                                                    echo "<option value=\"" . $j . "º Hora\">" . $j . "º Hora</option>";
                                                 }
                                             }
-
                                         }
-
                                     }
                                     ?>
                                 </select>
@@ -83,8 +128,8 @@ Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="descripcion" class="text-white">Descripción:</label>
-                        <textarea name="descripcion" class="form-control" type="text" placeholder="Descripción"></textarea>
+                        <label for="motivo" class="text-white">Motivo de la reserva:</label>
+                        <textarea name="motivo" class="form-control" type="text" placeholder="Motivo"></textarea>
                     </div>
                     <input type="submit" value="Reservar aula" class="btn btn-primary"/>
                 </form>
