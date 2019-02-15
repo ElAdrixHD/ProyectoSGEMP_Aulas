@@ -5,6 +5,7 @@ define("USER", "www-data");
 define("PASSWORD", "123");
 define("TABLA_USUARIO", "usuario");
 define("TABLA_AULA","aula");
+define("TABLA_RESERVA","reserva");
 define("COLUMNA_USUARIO", "nombre_usuario");
 define("COLUMNA_CONTRASENIA", "contrasenia");
 define("COLUMNA_FECHA", "fecha_nacimiento");
@@ -208,6 +209,13 @@ class DataObjectAccess
     public function getNombreAulas()
     {
         $sql = "SELECT ".COLUMNA_ID_AULA.",".COLUMNA_NOMBRE_AULA." FROM ".TABLA_AULA;
+        $result = $this->conexion->query($sql);
+        return $result;
+    }
+
+    public function getHorasReserva($aula, $date)
+    {
+        $sql = "SELECT hora_reserva FROM ".TABLA_RESERVA." WHERE fecha_reserva = '".$date."' and id_aula = ".$aula;
         $result = $this->conexion->query($sql);
         return $result;
     }

@@ -14,6 +14,7 @@ class Application
     <link rel='stylesheet' href='../css/footer.css'/>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
     <script type='text/javascript' src='../js/bootstrap.js'></script>
+    <script type='text/javascript' src='../js/miJS.js'></script>
     <link href=\"//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css\" rel=\"stylesheet\">
 </head>";
     }
@@ -182,5 +183,10 @@ class Application
     public function getNombreAulas()
     {
         return $this->dao->getNombreAulas();
+    }
+
+    public function getHoras($aula, $date)
+    {
+        return $this->dao->getHorasReserva($aula,$date);
     }
 }

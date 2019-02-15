@@ -21,39 +21,61 @@ Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
                 <form method="POST" action="panel.php">
                     <div class="form-group">
                         <label for="aula" class="text-white">Selecciona un aula:</label>
-                        <?php
-                        if($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['aula'])){
-                            echo "<select name=\"aula\" class=\"form-control\" disabled>
-                                    <option>".$app->getNombreAulaPorID($_GET['aula'])."</option>
-                                  </select>";
-                        }else{
-                            ?>
-                            <select name="aula" class="form-control" required>
-                                <option value=""></option>
-                                <?php
+                        <select name="aula" class="form-control"required onchange="if (this.value) window.location.href='reservar_aula.php?aula='+this.value">
+                            <?php
+                            if($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['aula'])){
+                                echo "<option disabled>Seleccione un aula</option>";
                                 $result = $app->getNombreAulas()->fetchAll();
-                                foreach ($result as $fila){
-                                echo "<option value=".$fila['id_aula'].">".$fila['nombre_aula']."</option>";
+                                foreach ($result as $fila) {
+                                    if ($fila['id_aula'] === $_GET['aula']){
+                                        $selected = "selected=\"true\"";
+                                    }else{
+                                        $selected = "";
+                                    }
+                                    echo "<option ".$selected." value=" . $fila['id_aula'] . ">" . $fila['nombre_aula'] . "</option>";
                                 }
-                                ?>
-                            </select>
-                        <?php
-                        }
-                        ?>
+                            }else{
+                                echo "<option selected disabled>Seleccione un aula</option>";
+                                $result = $app->getNombreAulas()->fetchAll();
+                                foreach ($result as $fila) {
+                                    echo "<option value=" . $fila['id_aula'] . ">" . $fila['nombre_aula'] . "</option>";
+                                }
+                            }
+                            ?>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="fecha" class="control-label text-white">Fecha y hora:</label>
                         <div class="form-inline row">
                             <div class="form-group col-sm-6">
-                                <input type="date" class="form-control" id="fecha" name="fecha" required>
+                                <input type="date" class="form-control" <?php
+                                if($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['date'])){
+                                    echo "value=\"".$_GET['date']."\"";
+                                }
+                                ?> onchange="handler(<?php echo $_GET['aula']?>,event)" id="fecha" name="fecha" required>
                             </div>
                             <div class="form-group col-sm-6">
                                 <select name="hora" class="form-control" required>
-                                    <option value="0"></option>
                                     <?php
-                                    $horas = $app->getHoras();
-                                    for ($i = 1; i<=6;$i++){
-                                        echo "<option value=\"".$i."\">Hola</option>";
+                                    if(isset($_GET['date']) && isset($_GET['aula'])) {
+                                        $horas = $app->getHoras($_GET['aula'],$_GET['date']);
+                                        if ($horas->rowCount() == 0){
+                                            for ($i = 1; $i <= 6; $i++) {
+                                                    echo "<option value=\"" . $i . "º Hora\">".$i."º Hora</option>";
+                                            }
+                                        }else{
+                                            $list = $horas->fetchAll();
+                                            for ($i = 1;$i<=6;$i++){
+                                                foreach ($list as $item){
+                                                    $hora = $i."º Hora";
+                                                    if ($hora !== $item['hora_reserva']) {
+                                                        echo "<option value=\"" . $i . "º Hora\">" . $i . "º Hora</option>";
+                                                    }
+                                                }
+                                            }
+
+                                        }
+
                                     }
                                     ?>
                                 </select>
