@@ -39,10 +39,9 @@ Application::PonerNav($app->getNombreReal($app->getUsuarioLogeado()));
                         echo "<div class=\"alert alert-warning\" role=\"alert\">
                                 <p>Debes introducir un motivo válido</p>
                               </div>";
-                    }elseif ($fecha <= date("Y-m-d")){
+                    }elseif ($fecha < date("Y-m-d")){
                         echo "<div class=\"alert alert-warning\" role=\"alert\">
-                                <p>No puedes poner una fecha pasada o presente.</p>
-                                <p>Debes reservarlo con un dia de antelación.</p>
+                                <p>No puedes poner una fecha pasada.</p>
                               </div>";
                     } else{
                         if (!$app->estaConectado()){

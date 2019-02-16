@@ -50,8 +50,8 @@ class Application
             <ul class=\"sub-menu collapse\" id=\"gestion\">
                 <li onclick=\"window.location='buscar_aula.php';\"><a href='buscar_aula.php'>Busquedas de aulas</a></li>
                 <li onclick=\"window.location='reservar_aula.php';\"><a href='reservar_aula.php'>Reservar de aula</a></li>
-                <li onclick=\"window.location='#';\"><a href='#'>Consultar reservas de un aula</a></li>
-                <li onclick=\"window.location='#';\"><a href='#'>Gestión de reservas</a></li>
+                <li onclick=\"window.location='busqueda_reserva.php';\"><a href='busqueda_reserva.php'>Consultar reservas de un aula</a></li>
+                <li onclick=\"window.location='panel.php';\"><a href='panel.php'>Gestión de reservas</a></li>
             </ul>
 
             <li data-toggle=\"collapse\" data-target=\"#perfil\" class=\"collapsed\">
@@ -193,5 +193,25 @@ class Application
     public function insertarReserva($aula, $fecha, $horita, $motivo, $getUsuarioLogeado)
     {
         return $this->dao->insertarReserva($aula, $fecha, $horita, $motivo, $getUsuarioLogeado);
+    }
+
+    public function getReservasPorFecha($aula, $fecha)
+    {
+        return $this->dao->getReservasPorFecha($aula, $fecha);
+    }
+
+    public function getNombreUsuario($id_usuario)
+    {
+        return $this->dao->getNombreUsuario($id_usuario)->fetch()['nombre_usuario'];
+    }
+
+    public function getReservas()
+    {
+        return $this->dao->getReservas();
+    }
+
+    public function borrarReserva($reserva)
+    {
+        return $this->dao->borrarReserva($reserva);
     }
 }

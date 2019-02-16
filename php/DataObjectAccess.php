@@ -223,10 +223,42 @@ class DataObjectAccess
     {
         $sql = "INSERT INTO ".TABLA_RESERVA." (".COLUMNA_FECHA_RESERVA.", ".COLUMNA_HORA_RESERVA.", ".COLUMNA_ID_AULA.", ".COLUMNA_ID_USUARIO.", ".COLUMNA_DESCRIPCION.") VALUES ('".$fecha."','".$horita."',".$aula.",'".$getUsuarioLogeado."','".$motivo."')";
         if ($this->conexion->exec($sql) === false){
-            $this->error = "Imposible registrar usuario";
+            $this->error = "Imposible insertar esa reserva";
             return false;
         }else{
             return true;
+        }
+    }
+
+    public function getReservasPorFecha($aula, $fecha)
+    {
+        $sql = "SELECT * FROM ".TABLA_RESERVA." WHERE ".COLUMNA_FECHA_RESERVA." = '".$fecha."' and ".COLUMNA_ID_AULA." = ".$aula;
+        $result = $this->conexion->query($sql);
+        return $result;
+    }
+
+    public function getNombreUsuario($id_usuario)
+    {
+        $sql = "SELECT ".COLUMNA_USUARIO." FROM ".TABLA_USUARIO." WHERE ".COLUMNA_ID." = ".$id_usuario;
+        $result = $this->conexion->query($sql);
+        return $result;
+    }
+
+    public function getReservas()
+    {
+        $sql = "SELECT * FROM ".TABLA_RESERVA." WHERE ".COLUMNA_FECHA_RESERVA." >= CURDATE()";
+        $result = $this->conexion->query($sql);
+        return $result;
+    }
+
+    public function borrarReserva($reserva)
+    {
+        $sql = "DELETE FROM ".TABLA_RESERVA." WHERE ".COLUMNA_ID_RESERVA." = ".$reserva;
+        if ($this->conexion->exec($sql) === true){
+            return true;
+        }else{
+            $this->error = "Imposible borrar reserva";
+            return false;
         }
     }
 }
