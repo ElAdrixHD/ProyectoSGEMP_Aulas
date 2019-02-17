@@ -65,9 +65,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             foreach ($list as $item){
                 $array[] = $item['hora_reserva'];
             }
-            if (count($list)==0){
-                echo "<p class='text-white'>NO HAY RESERVAS</p>";
-            }else{
                 echo "<table class=\"table table-striped table-dark\">";
                 echo "<thead>";
                 echo "<tr>";
@@ -97,10 +94,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 echo "</tbody>";
                 echo "</table>";
             }
-        }
     }
 }elseif($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if (substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], "/") + 1) !== "login.php" || substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], "/") + 1) !== "borrarcuenta.php") {
+    if (substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], "/") + 1) != "index.php" and substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], "/") + 1) != "borrarcuenta.php") {
         $result = $app->getReservas();
         if(!$result){
             echo "<p>Error al conectar al servidor: ".$app->getError()."</p>";

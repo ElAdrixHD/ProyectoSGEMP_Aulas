@@ -64,7 +64,7 @@ Application::PonerHead("Registro", "../css/registro.css")
                             echo "<div class=\"alert alert-success\" role=\"alert\">
                                     <p>Se ha registrado satisfactoriamente. Se le redireccionará automaticamente para que pueda iniciar sesión.</p>
                                   </div>";
-                            echo "<script language=\"javascript\">setTimeout(function(){window.location.href=\"login.php\"},2500)</script>";
+                            echo "<script language=\"javascript\">setTimeout(function(){window.location.href=inindex.php2500)</script>";
                         }else{
                             echo "<div class=\"alert alert-danger\" role=\"alert\">
                                     <p>".$app->getError()."</p>
@@ -113,7 +113,7 @@ Application::PonerHead("Registro", "../css/registro.css")
                             <input type="submit" name="submit" class="btn btn-dark" value="Registrarse">
                         </div>
                         <div id="back-link" class="text-right form-group">
-                            <a href="login.php" class="btn btn-outline-dark">Cancelar</a>
+                            <a href="index.php" class="btn btn-outline-dark">Cancelar</a>
                         </div>
                     </form>
                 </div>

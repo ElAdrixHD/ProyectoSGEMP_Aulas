@@ -29,7 +29,7 @@ class Application
     {
         echo "<footer>
     <div class=\"footer-copyright text-center py-3\">© 2019 Copyright:
-        <a href=\"https://adrianmmudarra.es\"> Adrian Muñoz Mudarra</a>
+        <a href=\"https://adrianmmudarra.es\"> Adrian Muñoz Mudarra - Gestión de aulas</a>
     </div>
 </footer>";
     }
@@ -103,7 +103,7 @@ class Application
     }
 
     private function mostrarLogin(){
-        header('Location: login.php');
+        header('Location: index.php');
     }
 
     public function getNombreReal($usuario)

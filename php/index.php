@@ -14,7 +14,7 @@ Application::PonerHead("Inicio Sesion", "../css/login.css")
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
-                    <form id="login-form" action="login.php" class="form" method="post">
+                    <form id="login-form" action="index.php" class="form" method="post">
                         <div class="form-group">
                             <h3 class="text-center text-black">Inicio Sesión</h3>
                         </div>
